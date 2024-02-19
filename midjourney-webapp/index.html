@@ -201,12 +201,13 @@
         });
         
         promptButton.addEventListener("click", () => {
-            ws.send(JSON.stringify({ type: "prompt", data: promptText.value }));
+            ws.send(JSON.stringify({ 
+                auth: localStorage.getItem("token"), type: "prompt", data: promptText.value }));
         });
 
         upsampleButtons.forEach((button, index) => {
             button.addEventListener("click", () => {
-                ws.send(JSON.stringify({ type: "upsample", data: index + 1 }));
+                ws.send(JSON.stringify({ auth: localStorage.getItem("token"), type: "upsample", data: index + 1 }));
             });
         });
 
@@ -272,7 +273,6 @@
         });
 
         saveButton.addEventListener("click", () => {
-            // download the canvas as ${isbn}.png
             const a = document.createElement("a");
             a.href = image.src;
             a.download = `${isbn.value}.png`;
